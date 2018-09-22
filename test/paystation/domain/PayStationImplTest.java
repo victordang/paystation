@@ -174,7 +174,7 @@ public class PayStationImplTest {
          
          ps.cancel();
          assertEquals("Cancel should not add value to insertedSoFar",
-                 1, ps.getInsertedSoFar());
+                 0, ps.getInsertedSoFar());
     }
     
     @Test
