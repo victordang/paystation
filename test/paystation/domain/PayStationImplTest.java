@@ -169,7 +169,12 @@ public class PayStationImplTest {
     @Test
     public void cancelDoesNotAddToTotal()
             throws IllegalCoinException {
+         ps.addPayment(10);
+         ps.addPayment(25);
          
+         ps.cancel();
+         assertEquals("Cancel should not add value to insertedSoFar",
+                 1, ps.getInsertedSoFar());
     }
     
     @Test
