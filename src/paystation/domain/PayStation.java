@@ -17,7 +17,10 @@
  * implied. You may study, use, modify, and distribute it for non-commercial
  * purposes. For any commercial use, see http://www.baerbak.com/
  */
+
 package paystation.domain;
+import java.util.*;
+
 
 public interface PayStation {
 
@@ -55,8 +58,7 @@ public interface PayStation {
     /**
      * Cancel the present transaction. Resets the machine for a new transaction.
      */
-    public void cancel();
-    
+    public Map<Integer, Integer> cancel();
     
     /*
      * Returns the total amount of money collected by the paystation since the
@@ -64,4 +66,5 @@ public interface PayStation {
      * Paystation.
      */
     public int empty();
-}
+    
+}//end of paystation
