@@ -52,7 +52,14 @@ public class PayStationImpl implements PayStation {
 
     @Override
     public void cancel() {
-        reset();
+            reset();
+    }
+    
+    @Override
+    public int empty() {
+        int payout = insertedSoFar;
+        insertedSoFar = 0;
+        return payout;
     }
     
     private void reset() {
