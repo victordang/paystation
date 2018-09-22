@@ -39,10 +39,26 @@ public class PayStationImpl implements PayStation {
             default:
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
+        
+        if(coinsInserted.containsKey(coinValue)) {
+            int current = coinsInserted.get(coinValue);
+            coinsInserted.put(coinValue, current+=1);
+        }    
+        else {
+            coinsInserted.put(coinValue, 1);
+        } 
+        
+
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
     }
 
+    
+    public int getMap(int coinValue){
+        return coinsInserted.get(coinValue);
+    }
+    
+    
     @Override
     public int readDisplay() {
         return timeBought;
@@ -68,6 +84,8 @@ public class PayStationImpl implements PayStation {
             reset();
             return coins;
     }
+    
+    
     
     @Override
     public int empty(){
