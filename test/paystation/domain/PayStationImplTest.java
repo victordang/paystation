@@ -252,10 +252,7 @@ public class PayStationImplTest {
         ps.addPayment(quarter);
         
         testMap = new HashMap<>();
-        testMap.put(nickel, 1);
-        testMap.put(dime, 1);
-        testMap.put(quarter, 1);
-        
+
         ps.cancel();
         assertEquals("Cancel should clear the map after executing",
                 testMap, ps.getCoins());
