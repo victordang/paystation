@@ -185,7 +185,6 @@ public class PayStationImplTest {
         ps.addPayment(coinValue);
         HashMap<Integer, Integer> testMap = new HashMap<Integer, Integer>();
         testMap.put(coinValue, 1);
-        testMap.put(5, 1);
         
         assertEquals("Cancel should return a map with one coin, defined by coinValue.",
                testMap , ps.cancel());
