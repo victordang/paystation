@@ -150,7 +150,7 @@ public class PayStationImplTest {
         ps.addPayment(25);
         
         assertEquals("Empty should return the insertedSoFar",
-                39, ps.empty());
+                40, ps.empty());
     }
     
     @Test
