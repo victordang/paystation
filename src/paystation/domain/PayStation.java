@@ -47,12 +47,29 @@ public interface PayStation {
      *
      * @return a valid parking receipt object.
      */
+    
+      /*
+     * Returns the amount of money currently inserted into the Paystation between
+     * empty calls.
+     */
+    public int getInsertedSoFar();
+    
+    
     public Receipt buy();
+    
+       /*
+     * Returns the total amount of money collected by the paystation since the
+     * empty call, and then returns it. Also resets the amount of money in the
+     * Paystation.
+     */
+    public int empty();
+    
+    
 
     /**
      * Cancel the present transaction. Resets the machine for a new transaction.
      */
-    public Map<Integer, Integer> cancel();
+public HashMap<Integer, Integer> cancel();
    
     
     
