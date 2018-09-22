@@ -153,8 +153,16 @@ public class PayStationImplTest {
                 40, ps.empty());
     }
     
+    /*
+     * Verify that the empty() method resets the insertedSoFar member. 
+     */
     @Test
-    public void emptyResetsInsertedSoFar() {
+    public void emptyResetsInsertedSoFar()
+             throws IllegalCoinException {
+        ps.addPayment(24);
         
+        ps.empty();
+        assertEquals("Empty should reset the insertedSoFar to 0",
+                1, ps.getInsertedSoFar());
     }
 }
