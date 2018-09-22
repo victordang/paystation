@@ -182,18 +182,33 @@ public class PayStationImplTest {
     public void cancelReturnsSingleCoin()
             throws IllegalCoinException {
         int coinValue = 10;
+        
         ps.addPayment(coinValue);
+        
         HashMap<Integer, Integer> testMap = new HashMap<Integer, Integer>();
         testMap.put(coinValue, 1);
         
-        assertEquals("Cancel should return a map with one coin, defined by coinValue.",
-               testMap , ps.cancel());
+        assertEquals("Cancel should return a map with one coin when only one coin has been inserted",
+               testMap, ps.cancel());
     }
     
     @Test
     public void cancelReturnsMixedCoins()
             throws IllegalCoinException {
+        int nickel = 5;
+        int dime = 10;
+        int quarter = 25;
         
+        ps.addPayment(nickel);
+        ps.addPayment(dime);
+        ps.addPayment(quarter);
+        
+       HashMap<Integer, Integer> testMap = new HashMap<Integer, Integer>();
+       testMap.put(nickel, 1);
+       testMap.put(quarter, 1);
+       
+       assertEquals("Cancel should return a map with a mixture of coins when multiple coins have been inserted",
+               testMap, ps.cancel());
     }
     
     @Test
