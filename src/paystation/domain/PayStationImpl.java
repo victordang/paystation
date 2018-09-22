@@ -63,18 +63,14 @@ public class PayStationImpl implements PayStation {
   
     
     @Override
-<<<<<<< HEAD
-    public int empty(){
-=======
-    public Map<Integer, Integer> cancel() {
-            Map<Integer, Integer> retMap;
-            
-            return retMap;
+    public HashMap<Integer, Integer> cancel(){
+            HashMap<Integer, Integer> coins = coinsInserted;
+            reset();
+            return coins;
     }
     
     @Override
-    public int empty() {
->>>>>>> 2d0d9311a4f8fd7503dec1baa943495cef3bb3bf
+    public int empty(){
         int payout = insertedSoFar;
         insertedSoFar = 0;
         return payout;
@@ -88,15 +84,10 @@ public class PayStationImpl implements PayStation {
     }
     
     
-     @Override
-    public HashMap<Integer, Integer> cancel() {
-        HashMap <Integer,Integer> coins = coinsInserted;
-        reset(); //clears the map
-        return coins ;
-    }
+     
     
     
     
     
     
-}
+}//end of paystation
