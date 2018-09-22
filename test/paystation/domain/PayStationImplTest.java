@@ -19,6 +19,12 @@ import org.junit.Before;
 public class PayStationImplTest {
 
     PayStation ps;
+    
+    private HashMap<Integer, Integer> testMap;
+    
+    private static final int nickel = 5;
+    private static final int dime = 10;
+    private static final int quarter = 25;
 
     @Before
     public void setup() {
@@ -31,7 +37,7 @@ public class PayStationImplTest {
     @Test
     public void shouldDisplay2MinFor5Cents()
             throws IllegalCoinException {
-        ps.addPayment(5);
+        ps.addPayment(nickel);
         assertEquals("Should display 2 min for 5 cents",
                 2, ps.readDisplay());
     }
@@ -41,7 +47,7 @@ public class PayStationImplTest {
      */
     @Test
     public void shouldDisplay10MinFor25Cents() throws IllegalCoinException {
-        ps.addPayment(25);
+        ps.addPayment(quarter);
         assertEquals("Should display 10 min for 25 cents",
                 10, ps.readDisplay());
     }
@@ -60,8 +66,8 @@ public class PayStationImplTest {
     @Test
     public void shouldDisplay14MinFor10And25Cents()
             throws IllegalCoinException {
-        ps.addPayment(10);
-        ps.addPayment(25);
+        ps.addPayment(dime);
+        ps.addPayment(quarter);
         assertEquals("Should display 14 min for 10+25 cents",
                 14, ps.readDisplay());
     }
@@ -72,9 +78,9 @@ public class PayStationImplTest {
     @Test
     public void shouldReturnCorrectReceiptWhenBuy()
             throws IllegalCoinException {
-        ps.addPayment(5);
-        ps.addPayment(10);
-        ps.addPayment(25);
+        ps.addPayment(nickel);
+        ps.addPayment(dime);
+        ps.addPayment(quarter);
         Receipt receipt;
         receipt = ps.buy();
         assertNotNull("Receipt reference cannot be null",
@@ -89,13 +95,13 @@ public class PayStationImplTest {
     @Test
     public void shouldReturnReceiptWhenBuy100c()
             throws IllegalCoinException {
-        ps.addPayment(10);
-        ps.addPayment(10);
-        ps.addPayment(10);
-        ps.addPayment(10);
-        ps.addPayment(10);
-        ps.addPayment(25);
-        ps.addPayment(25);
+        ps.addPayment(dime);
+        ps.addPayment(dime);
+        ps.addPayment(dime);
+        ps.addPayment(dime);
+        ps.addPayment(dime);
+        ps.addPayment(quarter);
+        ps.addPayment(quarter);
 
         Receipt receipt;
         receipt = ps.buy();
@@ -108,14 +114,14 @@ public class PayStationImplTest {
     @Test
     public void shouldClearAfterBuy()
             throws IllegalCoinException {
-        ps.addPayment(25);
+        ps.addPayment(quarter);
         ps.buy(); // I do not care about the result
         // verify that the display reads 0
         assertEquals("Display should have been cleared",
                 0, ps.readDisplay());
         // verify that a following buy scenario behaves properly
-        ps.addPayment(10);
-        ps.addPayment(25);
+        ps.addPayment(dime);
+        ps.addPayment(quarter);
         assertEquals("Next add payment should display correct time",
                 14, ps.readDisplay());
         Receipt r = ps.buy();
@@ -131,11 +137,11 @@ public class PayStationImplTest {
     @Test
     public void shouldClearAfterCancel()
             throws IllegalCoinException {
-        ps.addPayment(10);
+        ps.addPayment(dime);
         ps.cancel();
         assertEquals("Cancel should clear display",
                 0, ps.readDisplay());
-        ps.addPayment(25);
+        ps.addPayment(quarter);
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
     }
@@ -146,9 +152,9 @@ public class PayStationImplTest {
     @Test
     public void emptyReturnsAmountEntered()
             throws IllegalCoinException {
-        ps.addPayment(5);
-        ps.addPayment(10);
-        ps.addPayment(25);
+        ps.addPayment(nickel);
+        ps.addPayment(dime);
+        ps.addPayment(quarter);
         
         assertEquals("Empty should return the insertedSoFar",
                 40, ps.empty());
@@ -160,7 +166,7 @@ public class PayStationImplTest {
     @Test
     public void emptyResetsInsertedSoFar()
              throws IllegalCoinException {
-        ps.addPayment(25);
+        ps.addPayment(quarter);
         
         ps.empty();
         assertEquals("Empty should reset the insertedSoFar to 0",
@@ -174,8 +180,8 @@ public class PayStationImplTest {
     @Test
     public void cancelDoesNotAddToTotal()
             throws IllegalCoinException {
-         ps.addPayment(10);
-         ps.addPayment(25);
+         ps.addPayment(dime);
+         ps.addPayment(quarter);
          
          ps.cancel();
          assertEquals("Cancel should not add value to insertedSoFar",
@@ -188,12 +194,10 @@ public class PayStationImplTest {
     @Test
     public void cancelReturnsSingleCoin()
             throws IllegalCoinException {
-        int coinValue = 10;
+        ps.addPayment(dime);
         
-        ps.addPayment(coinValue);
-        
-        HashMap<Integer, Integer> testMap = new HashMap<Integer, Integer>();
-        testMap.put(coinValue, 1);
+        testMap = new HashMap<>();
+        testMap.put(dime, 1);
         
         assertEquals("Cancel should return a map with one coin when only one coin has been inserted",
                testMap, ps.cancel());
@@ -205,15 +209,11 @@ public class PayStationImplTest {
     @Test
     public void cancelReturnsMixedCoins()
             throws IllegalCoinException {
-        int nickel = 5;
-        int dime = 10;
-        int quarter = 25;
-        
         ps.addPayment(nickel);
         ps.addPayment(dime);
         ps.addPayment(quarter);
         
-       HashMap<Integer, Integer> testMap = new HashMap<Integer, Integer>();
+       testMap = new HashMap<>();
        testMap.put(nickel, 1);
        testMap.put(dime, 1);
        testMap.put(quarter, 1);
@@ -222,10 +222,22 @@ public class PayStationImplTest {
                testMap, ps.cancel());
     }
     
+    /*
+     * Test to ensure cancel does NOT return any keys for associated with coin types
+     * that were not inserted.
+     */
     @Test
     public void cancelDoesNotReturnFalseKeys()
             throws IllegalCoinException {
+        ps.addPayment(nickel);
+        ps.addPayment(quarter);
         
+        testMap = new HashMap<>();
+        testMap.put(nickel, 1);
+        testMap.put(quarter, 1);
+        
+        assertNotEquals("Cancel should not return any keys associated with coin types that have not been inserted",
+                testMap, ps.cancel());
     }
     
     @Test
