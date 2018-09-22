@@ -165,4 +165,40 @@ public class PayStationImplTest {
         assertEquals("Empty should reset the insertedSoFar to 0",
                 0, ps.getInsertedSoFar());
     }
+    
+    @Test
+    public void cancelDoesNotAddToTotal()
+            throws IllegalCoinException {
+         
+    }
+    
+    @Test
+    public void cancelReturnsSingleCoin()
+            throws IllegalCoinException {
+        
+    }
+    
+    @Test
+    public void cancelReturnsMixedCoins()
+            throws IllegalCoinException {
+        
+    }
+    
+    @Test
+    public void cancelDoesNotReturnFalseKeys()
+            throws IllegalCoinException {
+        
+    }
+    
+    @Test
+    public void cancelClearsMap()
+            throws IllegalCoinException {
+        
+    }
+    
+    @Test
+    public void buyClearsMap() 
+            throws IllegalCoinException {
+        
+    }
 }
