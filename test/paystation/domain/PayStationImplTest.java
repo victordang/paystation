@@ -163,6 +163,6 @@ public class PayStationImplTest {
         
         ps.empty();
         assertEquals("Empty should reset the insertedSoFar to 0",
-                1, ps.getInsertedSoFar());
+                0, ps.getInsertedSoFar());
     }
 }
