@@ -1,6 +1,8 @@
 package paystation.domain;
 import java.util.*;
 
+import java.util.Map;
+
 /**
  * Implementation of the pay station.
  *
@@ -45,6 +47,11 @@ public class PayStationImpl implements PayStation {
     public int readDisplay() {
         return timeBought;
     }
+    
+    @Override
+    public int getInsertedSoFar() {
+        return insertedSoFar;
+    }
 
     @Override
     public Receipt buy() {
@@ -56,7 +63,18 @@ public class PayStationImpl implements PayStation {
   
     
     @Override
+<<<<<<< HEAD
     public int empty(){
+=======
+    public Map<Integer, Integer> cancel() {
+            Map<Integer, Integer> retMap;
+            
+            return retMap;
+    }
+    
+    @Override
+    public int empty() {
+>>>>>>> 2d0d9311a4f8fd7503dec1baa943495cef3bb3bf
         int payout = insertedSoFar;
         insertedSoFar = 0;
         return payout;

@@ -138,4 +138,31 @@ public class PayStationImplTest {
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
     }
+    
+    /*
+     * Verify whether the empty() method returns the correct amount of money
+     */
+    @Test
+    public void emptyReturnsAmountEntered()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        
+        assertEquals("Empty should return the insertedSoFar",
+                40, ps.empty());
+    }
+    
+    /*
+     * Verify that the empty() method resets the insertedSoFar member. 
+     */
+    @Test
+    public void emptyResetsInsertedSoFar()
+             throws IllegalCoinException {
+        ps.addPayment(25);
+        
+        ps.empty();
+        assertEquals("Empty should reset the insertedSoFar to 0",
+                0, ps.getInsertedSoFar());
+    }
 }
