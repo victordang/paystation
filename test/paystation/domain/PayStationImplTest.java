@@ -25,6 +25,17 @@ public class PayStationImplTest {
     private static final int nickel = 5;
     private static final int dime = 10;
     private static final int quarter = 25;
+    
+    
+    /*
+     * Simple utility method to add one of each coin type to our PayStation.
+     */
+    public void addOneOfEach()
+            throws IllegalCoinException {
+        ps.addPayment(nickel);
+        ps.addPayment(dime);
+        ps.addPayment(quarter);
+    }
 
     @Before
     public void setup() {
@@ -78,9 +89,7 @@ public class PayStationImplTest {
     @Test
     public void shouldReturnCorrectReceiptWhenBuy()
             throws IllegalCoinException {
-        ps.addPayment(nickel);
-        ps.addPayment(dime);
-        ps.addPayment(quarter);
+        addOneOfEach();
         Receipt receipt;
         receipt = ps.buy();
         assertNotNull("Receipt reference cannot be null",
@@ -152,9 +161,7 @@ public class PayStationImplTest {
     @Test
     public void emptyReturnsAmountEntered()
             throws IllegalCoinException {
-        ps.addPayment(nickel);
-        ps.addPayment(dime);
-        ps.addPayment(quarter);
+        addOneOfEach();
         
         assertEquals("Empty should return the insertedSoFar",
                 40, ps.empty());
@@ -209,9 +216,7 @@ public class PayStationImplTest {
     @Test
     public void cancelReturnsMixedCoins()
             throws IllegalCoinException {
-        ps.addPayment(nickel);
-        ps.addPayment(dime);
-        ps.addPayment(quarter);
+        addOneOfEach();
         
        testMap = new HashMap<>();
        testMap.put(nickel, 1);
@@ -247,20 +252,25 @@ public class PayStationImplTest {
     @Test
     public void cancelClearsMap()
             throws IllegalCoinException {
-        ps.addPayment(nickel);
-        ps.addPayment(dime);
-        ps.addPayment(quarter);
+        addOneOfEach();
         
         testMap = new HashMap<>();
 
         ps.cancel();
-        assertEquals("Cancel should clear the map after executing",
+        assertEquals("Cancel should clear the hashMap after executing",
                 testMap, ps.getCoins());
     }
     
     @Test
     public void buyClearsMap() 
             throws IllegalCoinException {
+        addOneOfEach();
         
+        testMap = new HashMap<>();
+        testMap.put(nickel, 1);
+        
+        ps.buy();
+        assertEquals("Buy should clear the hashMap after executing",
+                testMap, ps.getCoins());
     }
 }
