@@ -234,6 +234,7 @@ public class PayStationImplTest {
         
         testMap = new HashMap<>();
         testMap.put(nickel, 1);
+        testMap.put(dime, 1);
         testMap.put(quarter, 1);
         
         assertNotEquals("Cancel should not return any keys associated with coin types that have not been inserted",
