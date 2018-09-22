@@ -267,7 +267,6 @@ public class PayStationImplTest {
         addOneOfEach();
         
         testMap = new HashMap<>();
-        testMap.put(nickel, 1);
         
         ps.buy();
         assertEquals("Buy should clear the hashMap after executing",
