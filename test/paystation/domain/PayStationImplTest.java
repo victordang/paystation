@@ -241,10 +241,24 @@ public class PayStationImplTest {
                 testMap, ps.cancel());
     }
     
+    /*
+     * Test to make sure the PayStation has an no coins in it after the cancel method is called.
+     */
     @Test
     public void cancelClearsMap()
             throws IllegalCoinException {
+        ps.addPayment(nickel);
+        ps.addPayment(dime);
+        ps.addPayment(quarter);
         
+        testMap = new HashMap<>();
+        testMap.put(nickel, 1);
+        testMap.put(dime, 1);
+        testMap.put(quarter, 1);
+        
+        ps.cancel();
+        assertEquals("Cancel should clear the map after executing",
+                testMap, ps.getCoins());
     }
     
     @Test

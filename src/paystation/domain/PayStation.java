@@ -54,18 +54,23 @@ public interface PayStation {
      */
     public int getInsertedSoFar();
     
-    
+    /*
+     * Returns a receipt for how much time the user purchased then resets the Paystayion.
+     */
     public Receipt buy();
     
-       /*
+    /*
+     * Returns the HashMap representing every coin inserted into the PayStation.
+     */
+    public HashMap<Integer, Integer> getCoins();
+    
+     /*
      * Returns the total amount of money collected by the paystation since the
      * empty call, and then returns it. Also resets the amount of money in the
      * Paystation.
      */
     public int empty();
     
-    
-
     /**
      * Cancel the present transaction. Resets the machine for a new transaction.
      */

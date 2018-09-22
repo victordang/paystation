@@ -26,8 +26,7 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
-    
-    public HashMap<Integer,Integer> coinsInserted = new HashMap<Integer,Integer>();
+    private HashMap<Integer,Integer> coinsInserted = new HashMap<>();
 
     @Override
     public void addPayment(int coinValue)
@@ -77,6 +76,10 @@ public class PayStationImpl implements PayStation {
     }
 
   
+    @Override
+    public HashMap<Integer, Integer> getCoins() {
+        return coinsInserted;
+    }
     
     @Override
     public HashMap<Integer, Integer> cancel(){
@@ -85,8 +88,6 @@ public class PayStationImpl implements PayStation {
             return coins;
     }
     
-    
-    
     @Override
     public int empty(){
         int payout = insertedSoFar;
@@ -94,18 +95,9 @@ public class PayStationImpl implements PayStation {
         return payout;
     }
     
-    
-    
     private void reset() {
         timeBought = insertedSoFar = 0;
         coinsInserted = new HashMap<Integer,Integer>();
     }
-    
-    
-     
-    
-    
-    
-    
-    
+  
 }//end of paystation
