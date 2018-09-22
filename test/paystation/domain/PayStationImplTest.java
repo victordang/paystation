@@ -159,7 +159,7 @@ public class PayStationImplTest {
     @Test
     public void emptyResetsInsertedSoFar()
              throws IllegalCoinException {
-        ps.addPayment(24);
+        ps.addPayment(25);
         
         ps.empty();
         assertEquals("Empty should reset the insertedSoFar to 0",
