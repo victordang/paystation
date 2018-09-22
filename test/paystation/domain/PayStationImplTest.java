@@ -167,6 +167,10 @@ public class PayStationImplTest {
                 0, ps.getInsertedSoFar());
     }
     
+    
+    /*
+     * Verify that the insertedSoFar is successfully reset after a cancel call. 
+     */
     @Test
     public void cancelDoesNotAddToTotal()
             throws IllegalCoinException {
@@ -178,6 +182,9 @@ public class PayStationImplTest {
                  0, ps.getInsertedSoFar());
     }
     
+    /*
+     * Test to make sure only one coin is returned by cancel when one coin was inserted.
+     */
     @Test
     public void cancelReturnsSingleCoin()
             throws IllegalCoinException {
@@ -192,6 +199,9 @@ public class PayStationImplTest {
                testMap, ps.cancel());
     }
     
+    /*
+     * Test to make sure cancel will return a mixture of different coins when appropriate.
+     */
     @Test
     public void cancelReturnsMixedCoins()
             throws IllegalCoinException {
@@ -205,6 +215,7 @@ public class PayStationImplTest {
         
        HashMap<Integer, Integer> testMap = new HashMap<Integer, Integer>();
        testMap.put(nickel, 1);
+       testMap.put(dime, 1);
        testMap.put(quarter, 1);
        
        assertEquals("Cancel should return a map with a mixture of coins when multiple coins have been inserted",
