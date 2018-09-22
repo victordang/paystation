@@ -40,12 +40,6 @@ public interface PayStation {
      * @return the number to display on the pay station display
      */
     public int readDisplay();
-    
-    /*
-     * Returns the amount of money currently inserted into the Paystation between
-     * empty calls.
-     */
-    public int getInsertedSoFar();
 
     /**
      * Buy parking time. Terminate the ongoing transaction and return a parking
@@ -59,12 +53,11 @@ public interface PayStation {
      * Cancel the present transaction. Resets the machine for a new transaction.
      */
     public Map<Integer, Integer> cancel();
+   
     
-    /*
-     * Returns the total amount of money collected by the paystation since the
-     * empty call, and then returns it. Also resets the amount of money in the
-     * Paystation.
-     */
+    
     public int empty();
-    
+
+
+
 }//end of paystation
